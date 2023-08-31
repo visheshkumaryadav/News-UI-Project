@@ -1,0 +1,31 @@
+<router-outlet></router-outlet>
+<div class="container">
+    <h2>Login form</h2>
+    <form #loginform="ngForm" (ngSubmit)="login()">
+        {{loginform.form.valid}}
+        <small class="text-danger">{{msg}}</small>
+        <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.emailId" required
+                #email="ngModel" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z_]{2,3}$"
+                [class.is-invalid]="email.invalid && email.touched">
+               <small class="text-danger" [class.d-none]="email.valid || email.untouched">email id required field</small>
+            <!-- <div *ngIf="email.errors && (email.invalid && email.touched)">
+                <small class="text-danger" *ngIf="email.errors.required">Email id is required field!</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Enter the valid email id</small>
+            </div> -->
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd" name="password" [(ngModel)]="user.password" required
+                #password="ngModel" pattern="" [class.is-invalid]="password.invalid && password.touched">
+            <small class="text-danger" [class.d-none]="password.valid || password.untouched">password id required
+                field</small>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+        </div><br>
+        <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-primary">Login</button><br>
+        <small>Create new account? <a routerLink="/signup">Signup</a></small><br>
+    </form>
+</div>
